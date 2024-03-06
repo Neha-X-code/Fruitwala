@@ -14,12 +14,41 @@ include 'partials/_dbconnect.php';
 </head>
 <body>
     <?php require 'partials/_nav.php' ?>
-    <div class="container">
-        <h1>Welcome to फ्रूटwala!</h1>
-        <p>Discover a variety of fresh and delicious fruits.</p>
-        <p>Explore our collection and enjoy the goodness of nature.</p>
+    <div class="image-container">
+        <img src="/Fruitwala/bg.jpg" class="img-fluid" alt="Fruit">
+        <div class="container text-over-image">
+            <h1>Welcome to फ्रूटwala!</h1>
+            <p>Discover a variety of fresh and delicious fruits and their nutrition value</p>
+        </div>
     </div>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
+        .image-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-over-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: black; /* Set text color as needed */
+        }
+    </style>
     <!-- Font Awesome script -->
     <script src="https://kit.fontawesome.com/69f4a7d5cb.js" crossorigin="anonymous"></script>
     <!-- Bootstrap JS bundle -->
