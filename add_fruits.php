@@ -23,25 +23,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $carbohydrates = $_POST["carbohydrates"];
     $protein = $_POST["protein"];
 
-    // Check if the fruit name already exists in the API
-    $api_url = "https://www.fruityvice.com/api/fruit/all";
-    $response = file_get_contents($api_url);
-    $apiData = json_decode($response, true);
+    // Get the user ID from the session
+    $userId = $_SESSION['user_id'];
 
-    $fruitExistsInApi = in_array(strtolower($fruitName), array_map('strtolower', array_column($apiData, 'name')));
+    // Check if the fruit name already exists for the current user in the database
+    $result = mysqli_query($conn, "SELECT * FROM fruits WHERE LOWER(name) = LOWER('$fruitName') AND user_id = '$userId'");
+    $fruitExistsForUser = mysqli_num_rows($result) > 0;
 
-    // Check if the fruit name already exists in the database
-    $result = mysqli_query($conn, "SELECT * FROM fruits WHERE LOWER(name) = LOWER('$fruitName')");
-    $fruitExistsInDb = mysqli_num_rows($result) > 0;
-
-    if ($fruitExistsInApi || $fruitExistsInDb) {
-        $showError = "Error: Fruit with the name '$fruitName' already exists.";
+    if ($fruitExistsForUser) {
+        $showError = "Error: You already added a fruit with the name '$fruitName'.";
     } else {
         // Perform necessary validation (you can add more as needed)
 
-        // Insert new fruit details into the database
-        $sql = "INSERT INTO `fruits` (`name`, `family`, `order`, `genus`, `calories`, `fat`, `sugar`, `carbohydrates`, `protein`)
-                VALUES ('$fruitName', '$family', '$order', '$genus', '$calories', '$fat', '$sugar', '$carbohydrates', '$protein')";
+        // Insert new fruit details into the database with the user ID
+        $sql = "INSERT INTO `fruits` (`name`, `family`, `order`, `genus`, `calories`, `fat`, `sugar`, `carbohydrates`, `protein`, `user_id`)
+                VALUES ('$fruitName', '$family', '$order', '$genus', '$calories', '$fat', '$sugar', '$carbohydrates', '$protein', '$userId')";
 
         $result = mysqli_query($conn, $sql);
 

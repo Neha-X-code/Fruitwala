@@ -21,10 +21,10 @@ echo '<nav class="navbar navbar-expand-lg bg-body-tertiary">
           <a class="nav-link active" aria-current="page" href="/Fruitwala/index.php">Home</a>
         </li>
       <li class="nav-item">
-          <a class="nav-link" href="/Fruitwala/signup.php">Fruits</a>
+          <a class="nav-link" href="/Fruitwala/fruits.php">Fruits</a>
         </li>';
         echo '<li class="nav-item">
-          <a class="nav-link" href="/Fruitwala/login.php">Your Fruits</a>
+          <a class="nav-link" href="/Fruitwala/your_fruits.php">Your Fruits</a>
         </li>';
         if(!$loggedin){
         echo '<li class="nav-item dropdown">
